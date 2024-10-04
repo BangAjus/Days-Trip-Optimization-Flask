@@ -35,7 +35,7 @@ pip install -r requirements.txt
 ```
 
 ## Configuration
-Create a `.env` file to store credential and secret keys for local development. <br>
+Create a `.env` file to store credential and secret keys to access the server. <br>
 You can follow the `.env.example` file.
 
 ## Run the Server
