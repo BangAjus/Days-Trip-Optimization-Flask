@@ -1,57 +1,56 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+from apps.errors import errorsBp
+from apps.auth import auth
 
 from utils import model
 from utils.processing import *
+import os
 
-app = Flask('ML_API')
+port = int(os.environ.get("PORT", 5000))
+app = Flask(__name__)
+CORS(app)
 
-@app.route("/", methods=["GET"])
-def index():
-    if request.method != "GET":
+app.register_blueprint(errorsBp)
 
-        return jsonify({
-            "status":
-            {
-                "code": 405,
-                "message": "Method not allowed",
-            },
-            "data": None,
-        }), 405
+@app.route('/', methods=['GET'])
+@auth.login_required
+def get_server():
+
+    return jsonify({
+        "status" : {
+            "code" : 200,
+            "message" : "Welcome to the Back-End server of Day Trips Optimization!"
+        },
+        "data" : None
+    }), 200
+
+@app.route("/api", methods=["GET"])
+def process_data():
+        
+    data = request.json
+    features = process_data_after_json(data)
+    features_scaled = min_max_scaling(features)
+
+    labels = model.clustering(features_scaled,
+                            int(data['days']))
+    labels = labels.reshape(-1, 1)
     
-    else:
+    features = inverse_scaling(features)
+    features = concatenate((features, labels),
+                        axis=1)
 
-        if not request:
-            return jsonify({
-                "status":
-                { 
-                    "code": 400,
-                    "message":"Couldn't fetch the API"
+    return jsonify({
+        "status" : {
+            "code":200,
+            "message":"Success fetching the API!"
+        },
                         
-                }
-            }), 400
-        
-        data = request.json
-        features = process_data_after_json(data)
-        features_scaled = min_max_scaling(features)
-
-        labels = model.clustering(features_scaled,
-                                int(data['days']))
-        labels = labels.reshape(-1, 1)
-        
-        features = inverse_scaling(features)
-        features = concatenate((features, labels),
-                            axis=1)
-
-        return jsonify({"status":{
-                            "code":200,
-                            "message":"Success fetching the API"
-                            },
-                            
-                        "data":[{'latitude':i,
-                                'longitude':j,
-                                'label':k} \
-                                for i, j, k in \
-                                    zip(features[:, 0],
-                                        features[:, 1],
-                                        features[:, 2])]
-                    })
+        "data":[{'latitude':i,
+                'longitude':j,
+                'label':k} \
+                for i, j, k in \
+                    zip(features[:, 0],
+                        features[:, 1],
+                        features[:, 2])]
+    }), 200

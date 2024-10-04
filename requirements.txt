@@ -2,3 +2,6 @@ numpy
 scikit-learn
 flask
 gunicorn
+flask-smorest
+Flask-HTTPAuth 
+python-dotenv
