@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+
 from apps.errors import errorsBp
 from apps.auth import auth
 
@@ -26,6 +27,7 @@ def get_server():
     }), 200
 
 @app.route("/api", methods=["GET"])
+@auth.login_required
 def process_data():
         
     data = request.json
