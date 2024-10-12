@@ -44,10 +44,12 @@ def index():
                         },
                         
                     "data":[{'latitude':i,
-                            'longitude':j,
-                            'label':k} \
-                            for i, j, k in \
-                                zip(features[:, 0],
-                                    features[:, 1],
-                                    features[:, 2])]
+                    'longitude':j,
+                    'label':k,
+                    'color':l} \
+                    for i, j, k, l in \
+                        zip(features[:, 0],
+                            features[:, 1],
+                            features[:, 2],
+                            features[:, 3])]
                 })
