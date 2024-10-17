@@ -6,19 +6,20 @@ scaler = MinMaxScaler()
 def process_data_after_json(data):
 
     coordinates = data['data']
-    lat, long = array([]), array([])
+    lat, long, loc_name = array([]), array([]), []
 
     for data in coordinates:
 
         lat = append(lat, data['latitude'])
         long = append(long, data['longitude'])
+        loc_name = append(loc_name, data['location_name'])
 
     lat = lat.reshape(-1, 1)
     long = long.reshape(-1, 1)
     coordinates = concatenate((lat, long),
                                  axis=1)
 
-    return coordinates
+    return coordinates, loc_name
 
 def min_max_scaling(data):
 

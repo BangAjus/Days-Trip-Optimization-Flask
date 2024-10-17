@@ -40,5 +40,6 @@ You can follow the `.env.example` file.
 
 ## Run the Server
 ```bash
-flask --app run.py run
+export FLASK_RUN_PORT=10111
+flask run
 ```

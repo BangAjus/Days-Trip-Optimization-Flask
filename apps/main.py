@@ -20,11 +20,11 @@ def get_server():
         "data" : None
     }), 200
 
-@app.route("/optimize", methods=["POST"])
+@app.route("/optimize", methods=['POST'])
 @auth.login_required
 def index():
     data = request.json
-    features = process_data_after_json(data)
+    features, loc_name = process_data_after_json(data)
     features_scaled = min_max_scaling(features)
 
     labels, coloring = model.clustering(features_scaled,
@@ -46,10 +46,12 @@ def index():
                     "data":[{'latitude':i,
                     'longitude':j,
                     'label':k,
-                    'color':l} \
-                    for i, j, k, l in \
+                    'color':l,
+                    'location_name': loc_name} \
+                    for i, j, k, l, loc_name in \
                         zip(features[:, 0],
                             features[:, 1],
                             features[:, 2],
-                            features[:, 3])]
+                            features[:, 3],
+                            loc_name)]
                 })
