@@ -20,7 +20,7 @@ def get_server():
         "data" : None
     }), 200
 
-@app.route("/optimize", methods=["GET"])
+@app.route("/optimize", methods=["POST"])
 @auth.login_required
 def index():
     data = request.json
