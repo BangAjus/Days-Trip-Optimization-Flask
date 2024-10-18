@@ -8,7 +8,7 @@ from utils import model
 from utils.processing import *
 import os
 
-port = int(os.environ.get("PORT", 5000))
+port = int(os.environ.get("PORT", 10111))
 app = Flask(__name__)
 CORS(app)
 
@@ -39,7 +39,6 @@ def process_data():
     labels = labels.reshape(-1, 1)
     coloring = coloring.reshape(-1, 1)
     
-    features = inverse_scaling(features)
     features = concatenate((features, labels),
                         axis=1)
     features = concatenate((features, coloring),
