@@ -32,7 +32,6 @@ def index():
     labels = labels.reshape(-1, 1)
     coloring = coloring.reshape(-1, 1)
     
-    features = inverse_scaling(features)
     features = concatenate((features, labels),
                         axis=1)
     features = concatenate((features, coloring),
