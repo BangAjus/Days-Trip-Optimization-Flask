@@ -43,3 +43,6 @@ You can follow the `.env.example` file.
 export FLASK_RUN_PORT=10111
 flask run
 ```
+
+## API Documentation
+[API Documentation](api-docs.md)

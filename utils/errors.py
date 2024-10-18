@@ -35,18 +35,6 @@ def method_not_allowed(error):
         "data": None,
     }), 405
 
-
-@errorsBp.app_errorhandler(429)
-def rate_limit_exceeded(error):
-    return jsonify({
-        "status": {
-            "code": 429,
-            "message": "Rate limit exceeded. Please try again later."
-        },
-        "data": None
-    }), 429
-
-
 @errorsBp.app_errorhandler(500)
 def internal_server_error(error):
     return jsonify({

@@ -3,9 +3,7 @@ This is the API documentation of Day Trips Optimization Back End Server.
 
 ## Table of Contents
 - [Endpoints](#endpoints)
-    - [Index](#1-index)
-    - [Optimization](#2-optimization)
-- [Error Responses](#error-responses)
+- [Error Response](#error-response)
 
 ## Endpoints
 ### 1. **Index**
@@ -27,8 +25,8 @@ This is the API documentation of Day Trips Optimization Back End Server.
 }
 ```
 
-### 2. Optimization
-**URL:** `/`
+### 2. Day Trips Optimization
+**URL:** `/optimize`
 
 **Request Method:** `POST`
 
@@ -66,10 +64,45 @@ This is the API documentation of Day Trips Optimization Back End Server.
 
 **Example Response:**
 ```json
-// TBA
+{
+    "data": [
+        {
+            "color": "#221380",
+            "label": "1.0",
+            "latitude": "3.5952",
+            "location_name": "Medan",
+            "longitude": "98.6722"
+        },
+        {
+            "color": "#088012",
+            "label": "2.0",
+            "latitude": "2.9664",
+            "location_name": "Pematang Siantar",
+            "longitude": "99.0613"
+        },
+        {
+            "color": "#e82020",
+            "label": "0.0",
+            "latitude": "2.6617",
+            "location_name": "Parapat",
+            "longitude": "98.9392"
+        },
+        {
+            "color": "#e82020",
+            "label": "0.0",
+            "latitude": "2.6719",
+            "location_name": "Tuk Tuk",
+            "longitude": "98.8532"
+        }
+    ],
+    "status": {
+        "code": 200,
+        "message": "Success fetching the API"
+    }
+}
 ```
 
-## Error Responses
+## Error Response
 ### 401 Unauthorized
 ```json
 {

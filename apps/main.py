@@ -5,7 +5,10 @@ from utils.processing import *
 from utils.auth import auth
 from utils.errors import errorsBp
 
-app = Flask('ML_API')
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
 
 app.register_blueprint(errorsBp)
 
